@@ -2,6 +2,10 @@ import gsap from 'gsap'
 import { useEffect, useRef } from 'react'
 import { throttle } from 'throttle-debounce'
 
+const getImageUrl = (i: number) => {
+	return new URL(`/src/assets/img/${i}.jpeg`, import.meta.url).href
+}
+
 const App = () => {
 	const imagesContainerRef = useRef<HTMLDivElement>(null)
 
@@ -38,7 +42,7 @@ const App = () => {
 		const addImage = (x: number, y: number) => {
 			x = x - 100
 			y = y - 150
-			const imgSrc = `/src/assets/img/${i % 8}.jpeg`
+			const imgSrc = getImageUrl(i % 8)
 			const img = new Image()
 			img.src = imgSrc
 			img.onload = () => {
@@ -88,7 +92,7 @@ const App = () => {
 				addImage(x, y)
 				i++
 				lastImagePosition = { x, y }
-				if (imagesContainer.children.length > 20) {
+				if (imagesContainer.children.length > 12) {
 					imagesContainer.removeChild(imagesContainer.firstChild!)
 				}
 			}
